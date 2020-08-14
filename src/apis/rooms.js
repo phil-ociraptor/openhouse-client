@@ -1,7 +1,7 @@
 import Peer from "peerjs";
 
 const PROTOCOL = "https";
-const HOST = "1c5edb1e7e21.ngrok.io";
+const HOST = "openhouse-server.herokuapp.com";
 const PORT = 443;
 
 // var peers = {}; // keep track of our peer connections, indexed by peer_id (aka socket.io id)
