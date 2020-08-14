@@ -1,9 +1,12 @@
 import Peer from "peerjs";
 import { feather } from "./feather";
 
-const PROTOCOL = "http"; // "https";
-const HOST = "localhost"; // "openhouse-server.herokuapp.com";
-const PORT = 9000; //443;
+const PROTOCOL = process.env.NODE_ENV === "production" ? "https" : "http";
+const HOST =
+  process.env.NODE_ENV === "production"
+    ? "openhouse-server.herokuapp.com"
+    : "localhost";
+const PORT = process.env.NODE_ENV === "production" ? 443 : 9000;
 const POST_OPTIONS = {
   method: "POST",
   headers: { "Content-Type": "application/json" }
