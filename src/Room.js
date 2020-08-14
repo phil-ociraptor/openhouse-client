@@ -5,9 +5,9 @@ import { exitCurrentRoom } from "./redux/actions";
 
 function Room(props) {
   const dispatch = useDispatch();
-  const rooms = useSelector(state => state.rooms);
+  // const rooms = useSelector(state => state.rooms);
   const currentRoomId = useSelector(state => state.currentRoomId);
-  const currentRoom = rooms[currentRoomId];
+  // const currentRoom = rooms[currentRoomId];
 
   const onClickExit = e => {
     e.preventDefault();

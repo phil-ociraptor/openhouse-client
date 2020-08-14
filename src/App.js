@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="App">
-      <audio id="gum-local" autoplay></audio>
+      <audio id="gum-local"></audio>
       <h1>PeerJS Demo</h1>
       <Rooms />
     </div>
