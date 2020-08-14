@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useLayoutEffect } from "react";
+import { AuthenticationForm, useCurrentUser } from "feather-client-react";
+import Rooms from "./Rooms";
+import { roomsAPI } from "./apis";
+import "./App.css";
 
 function App() {
+  const { currentUser, loading } = useCurrentUser();
+
+  useLayoutEffect(() => {
+    if (currentUser) roomsAPI.connect();
+  });
+
+  if (loading) return null;
+  if (!currentUser) return <AuthenticationForm />;
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <audio id="gum-local" autoplay></audio>
+      <h1>PeerJS Demo</h1>
+      <Rooms />
     </div>
   );
 }
