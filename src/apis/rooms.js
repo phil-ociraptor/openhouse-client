@@ -28,7 +28,7 @@ const create = () => {
 const enter = roomId => {
   if (!self || !self.id) return;
   return _sendRequest(`/rooms/${roomId}/enter`, POST_OPTIONS)
-    .then(room => callPeersInRoom(room))
+    .then(room => _callPeersInRoom(room))
     .catch(Promise.reject);
 };
 
@@ -79,18 +79,18 @@ const connect = () => {
       });
       self.on("open", id => console.log("Connected as " + id));
       self.on("error", err => console.log("Failed to connect ", err)); // TODO handle ID-TAKEN error ("already connected elsewhere")
-      self.on("call", onCall);
+      self.on("call", _onCall);
     })
     .catch(Promise.reject);
 };
 
-const callPeersInRoom = room => {
+const _callPeersInRoom = room => {
   return getUserMedia({ video: false, audio: true })
     .then(stream => {
       for (const peerId in room.peers) {
         if (peerId !== self.id) {
           var call = self.call(peerId, stream);
-          call.on("stream", remoteStream => playStream(remoteStream));
+          call.on("stream", remoteStream => _playStream(remoteStream));
           // peerConnections[peerId] =
         }
       }
@@ -99,19 +99,18 @@ const callPeersInRoom = room => {
     .catch(Promise.reject);
 };
 
-const onCall = call => {
+const _onCall = call => {
   // TODO check if you want to accept this call
   getUserMedia({ video: false, audio: true })
     .then(stream => {
-      call.answer(stream); // Answer the call with an A/V stream.
-      call.on("stream", remoteStream => playStream(remoteStream));
+      call.answer(stream);
+      call.on("stream", remoteStream => _playStream(remoteStream));
     })
     .catch(Promise.reject);
 };
 
-const playStream = stream => {
+const _playStream = stream => {
   var audio = document.querySelector("audio");
-  // window.stream = stream; // make variable available to browser console
   audio.srcObject = stream;
   audio.play();
 };

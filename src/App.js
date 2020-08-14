@@ -16,8 +16,8 @@ function App() {
 
   return (
     <div className="App">
-      <audio id="gum-local"></audio>
-      <h1>PeerJS Demo</h1>
+      <audio></audio>
+      <h1>Openhouse</h1>
       <Rooms />
     </div>
   );
